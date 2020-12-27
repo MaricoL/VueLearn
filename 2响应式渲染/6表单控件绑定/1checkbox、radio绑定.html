@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+    
+    <div id="box">
+        <!-- 多选项框 -->
+        <input type="checkbox" v-model="checkGroup" value="Java">Java
+        <input type="checkbox" v-model="checkGroup" value="JS">JS
+        <input type="checkbox" v-model="checkGroup" value="Vue">Vue
+        <input type="checkbox" v-model="checkGroup" value="Jquery">Jquery
+        <br>
+
+        <!-- 单选项框 -->
+        <input type="checkbox" v-model="isRem">记住我<br>
+
+        <!-- radio绑定 -->
+        <input type="radio" name="favor" value="Java" v-model="ravorLang">Java
+        <input type="radio" name="favor" value="JS" v-model="ravorLang">JS
+        <input type="radio" name="favor" value="Vue" v-model="ravorLang">Vue
+        <input type="radio" name="favor" value="Jquery" v-model="ravorLang">Jquery
+
+        <button @click="handleSubmit">提交</button>
+
+        
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                checkGroup: [],
+                isRem: false,
+                ravorLang: ""
+            },
+            methods: {
+                handleSubmit(){
+                    console.log(this.checkGroup);
+                    console.log(this.isRem);
+                    console.log(this.ravorLang);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

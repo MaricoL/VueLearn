@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        body {
+            font-size: 30px;
+        }
+
+        .active {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li v-for="(data, index) in dataList" :class=" currentIndex === index ? 'active' : 'none'" @click="handleClick(index)">
+                {{ data }}
+            </li>
+        </ul>
+    </div>    
+
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                dataList: ["首页","菜单","联系我们"],
+                currentIndex: 0
+            },
+            methods: {
+                handleClick(index){
+                    this.currentIndex = index;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

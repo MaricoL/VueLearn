@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 25px;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        {{ myname }}
+        <button @click="handleClick()">change-1</button>
+        <button v-on:click="handleClick()">change-2</button>
+        <div v-show="isShow">动态显示和隐藏元素</div>
+        <div v-if="isCreated">动态创建和删除元素</div>
+        <div v-bind:class=" isActive ? 'red' : 'yellow'">动态切换样式-1</div>
+        <div :class=" isActive ? 'red' : 'yellow'">动态切换样式-2</div>
+
+        <ul>
+            <li v-for="(item, index) in dataList">
+                {{ item }} ------ {{ index }}
+            </li>
+        </ul>
+
+        <!-- <input type="text" @input="changeInput">
+        <button @click="getInputText">获取输入框的值</button> -->
+
+        <input type="text" v-model="mytext">
+        <button @click="getInputText">获取输入框的值</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                myname: "zhangsan",
+                isShow: true,
+                isCreated: true,
+                isActive: true,
+                dataList: ['aaa','bbb','ccc','ddd'],
+                mytext: ""
+            },
+            methods: {
+                handleClick() {
+                    this.myname = "lzl";
+                    this.isShow = !this.isShow;
+                    this.isCreated = !this.isCreated;
+                    this.isActive = !this.isActive;
+                },
+                // changeInput(e){
+                //     this.mytext = e.target.value;
+                //     console.log(e.target.value);
+                // },
+                getInputText(){
+                    console.log(this.mytext);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
