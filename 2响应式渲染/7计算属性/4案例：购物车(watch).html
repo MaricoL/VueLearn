@@ -27,7 +27,7 @@
     <div id="box">
         <div v-if="list.length === 0">购物车空空如也！！！</div>
         <template v-else>
-            <input type="checkbox" v-model="isAllChecked" @change="handleAllChecked">全选/全不选
+            <input type="checkbox" v-model="isAllChecked">全选/全不选
             <ul>
                 <li v-for="(item,index) in list" :key="item.id">
                     <input type="checkbox" v-model="checkGroup" :value="item" @change="check">
@@ -98,22 +98,32 @@
                     // 再次判断是否全选
                     this.check();
                 },
-                handleAllChecked(){
-                    if(this.isAllChecked){
-                        this.checkGroup = this.list;
-                    }else{
-                        this.checkGroup = [];
-                    }
-                },
-                
-                check(){
-                    if(this.checkGroup.length === this.list.length){
+                // handleAllChecked() {
+                //     if (this.isAllChecked) {
+                //         this.checkGroup = this.list;
+                //     } else {
+                //         this.checkGroup = [];
+                //     }
+                // },
+
+                check() {
+                    if (this.checkGroup.length === this.list.length) {
                         this.isAllChecked = true;
-                    }else{
+                    } else {
                         this.isAllChecked = false;
                     }
                 }
-
+            },
+            watch: {
+                isAllChecked(data) {
+                    if (data) {
+                        this.checkGroup = this.list;
+                    } else {
+                        if (this.checkGroup.length === this.list.length) {
+                            this.checkGroup = [];
+                        }
+                    }
+                }
             }
         });
     </script>

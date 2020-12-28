@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        lazy修饰符：(oninput变为onchange)<input type="text" v-model.lazy="mytext">{{ mytext }}<br>
+        number修饰符：(parseFloat())<input type="text" v-model.number="age"><br>
+        trim修饰符：(trim())<input type="text" v-model.trim="password">{{ password }}<br>
+        可以组合使用：<input type="text" v-model.lazy.number.trim="password2">{{ password2 }}<br>
+
+        <button @click="handleSubmit">提交</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                mytext: "",
+                age: 18,
+                password: "",
+                password2: ""
+            },
+            methods: {
+                handleSubmit() {
+                    console.log(this.mytext);
+                    console.log(this.age);
+                    console.log(this.password);
+                    console.log(this.password2);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
