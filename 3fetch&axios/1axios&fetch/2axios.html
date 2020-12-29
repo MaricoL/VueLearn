@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick">axios</button>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            methods: {
+                handleClick() {
+                    // get
+                    axios.get("./json/maoyan.json").then(res=>console.log(res));
+
+                    // post——传入键值对
+                    // axios.post("xxx","name=zhangsan&age=18").then(res=>console.log(res));
+
+                    // post——传入对象
+                //     axios.post("xxx", {
+                //         name: "zhangsan",
+                //         age: 18
+                //     }).then(res => console.log(res));
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
