@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 注意：@myevent 事件名不能有大写字母 -->
+        <child @myevent="handleEvent"></child>
+    </div>
+
+
+    <script>
+        Vue.component("child", {
+            template: `
+                <div>
+                    child - <button @click="handleClick">child子传父</button>
+                </div>
+            `,
+            data() {
+                return {
+                    money: 10000
+                }
+            },
+            methods: {
+                handleClick() {
+                    this.$emit("myevent", this.money);
+                }
+            }
+        });
+
+        var vm = new Vue({
+            el: "#box",
+            methods: {
+                handleEvent(data) {
+                    console.log("父组件接受：" + data);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

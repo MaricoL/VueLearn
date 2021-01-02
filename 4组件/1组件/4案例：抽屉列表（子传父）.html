@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <navbar @myevent="change"></navbar>
+        <sidebar v-show="isShow"></sidebar>
+
+        
+    </div>
+
+    <script>
+        Vue.component("navbar",{
+            template: `
+                <div style="background-color: yellow;">
+                    菜单列表 <button @click="handleClick">按钮</button>
+                </div>
+            `,
+            methods: {
+                handleClick(){
+                    this.$emit("myevent");
+                }
+            }
+        });
+
+        Vue.component("sidebar",{
+            template: `
+                <ul style="background-color: #fc6700;">
+                    <li>首页</li>
+                    <li>好友</li>
+                    <li>设置</li>
+                </ul>
+            `,
+        });
+
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                isShow: false
+            },
+            methods: {
+                change(){
+                    this.isShow = !this.isShow;
+                }
+            }
+
+        });
+    </script>
+</body>
+
+</html>
