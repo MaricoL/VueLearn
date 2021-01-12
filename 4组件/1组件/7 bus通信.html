@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <child1></child1>
+        <child2></child2>
+    </div>
+
+
+    <script>
+        // 消息总线
+        let bus = new Vue()
+
+        Vue.component('child1', {
+            template: `
+                <div>
+                    child1
+                    <button @click='handleClick'>详细信息</button>
+                </div>
+            `,
+            methods: {
+                handleClick() {
+                    bus.$emit('mybus', '传递信息。。。。')
+                }
+            }
+        })
+
+        Vue.component('child2', {
+            template: `
+                <div>
+                    child2
+                </div>
+            `,
+            mounted() {
+                bus.$on('mybus', (info) => {
+                    console.log(`接收到的信息为：${info}`);
+                })
+            }
+        })
+
+
+        let vm = new Vue({
+            el: '#box',
+
+        })
+    </script>
+</body>
+
+</html>

@@ -44,11 +44,13 @@
 
         <film-item v-for="data in dataList" :item="data" @detailevent="show" :key="data.filmId"></film-item>
 
-        <detail :filmdetail="detail"></detail>
+        <detail></detail>
 
     </div>
 
     <script>
+        let bus = new Vue()
+
         Vue.component("filmItem", {
             props: ["item"],
             template: `
@@ -60,17 +62,28 @@
             `,
             methods: {
                 showDetail() {
-                    this.$emit("detailevent", this.item.synopsis);
+                    // this.$emit("detailevent", this.item.synopsis);
+                    bus.$emit('mybus', this.item.synopsis)
                 }
             }
 
         });
 
         Vue.component("detail", {
-            props: ["filmdetail"],
+            data() {
+                return {
+                    info: ''
+                }
+            },
             template: `
-            <div class="detail">{{ filmdetail }}</div>
-            `
+            <div class="detail">{{ info }}</div>
+            `,
+            mounted() {
+                bus.$on('mybus', (data) => {
+                    // console.log(data);
+                    this.info = data
+                })
+            }
         });
 
         var vm = new Vue({
