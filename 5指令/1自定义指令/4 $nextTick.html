@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.css">
+
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/swiper/js/swiper.js"></script>
+
+
+    <style>
+        .mycss {
+            width: 800px;
+            height: 400px;
+            background-color: #bfa;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="box">
+        <div class="swiper-container mycss">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(data,index) in dataList">
+                    {{ data }}
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                dataList: []
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.dataList = Array.of('aaa', 'bbb', 'ccc')
+
+                    // this.nextTick 适合一次性使用，没有复用性
+                    this.$nextTick(() => {
+                        console.log("nextTick别updated执行的都玩，但只执行一次");
+                        new Swiper(".mycss", {
+                            loop: true,
+                            pagination: {
+                                el: '.swiper-pagination',
+                            },
+                        })
+                    })
+
+                }, 2000);
+            },
+            updated() {
+                console.log('updated....');
+            }
+        })
+    </script>
+</body>
+
+</html>

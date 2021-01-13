@@ -20,27 +20,35 @@
 
 <body>
     <div id="box">
-        <swiper :key="dataList.length">
+        <!-- 1. <swiper :key="dataList.length"> -->
+        <!-- 2. <swiper v-if="dataList.length"> -->
+        <swiper v-if="dataList.length" :myoptions="{loop:true}">
             <div class="swiper-slide" v-for="data in dataList">{{data}}</div>
+
+            <!-- 左右箭头插槽 -->
+            <!-- <template #arrow>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </template> -->
+
+            <!-- 分页插槽 -->
+            <!-- <template #pagination>
+                <div class="swiper-pagination"></div>
+            </template> -->
         </swiper>
 
     </div>
 
     <script>
         Vue.component('swiper', {
+            props: ["myoptions"],
             template: `
                 <div class="swiper-container mycss">
                     <div class="swiper-wrapper">
-                        <!-- <div class="swiper-slide">111111</div>
-                        <div class="swiper-slide">222222</div>
-                        <div class="swiper-slide">333333</div> -->
                         <slot></slot>
                     </div>
-
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-
-                    <div class="swiper-pagination"></div>
+                    <slot name="arrow"></slot>
+                    <slot name="pagination"></slot>
                 </div>
             `,
             // updated()：只要swiper中的某个状态改变更新就会执行一次
@@ -59,7 +67,7 @@
 
             mounted() {
                 console.log('mounted...');
-                new Swiper('.mycss', {
+                let baseOptions = {
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
@@ -68,7 +76,9 @@
                         el: '.swiper-pagination',
                         clickable: true,
                     },
-                })
+                }
+                let myOption = {...baseOptions,...this.myOptions}
+                new Swiper('.mycss', myOption)
             },
 
             destroyed() {

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.css">
+
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/swiper/js/swiper.js"></script>
+
+
+    <style>
+        .mycss {
+            width: 800px;
+            height: 400px;
+            background-color: #bfa;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="box">
+        <div class="swiper-container mycss">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(data,index) in dataList"
+                    v-swiper="{current:index,length:dataList.length}">
+                    {{ data }}
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        Vue.directive('swiper', {
+            inserted(el, binding,vnode) {
+                console.log(binding);
+                // vnode.context 通过虚拟节点拿到上下文（父元素）
+                console.log(vnode.context);
+                console.log(vnode.context.dataList.length);
+                if (binding.value.current === binding.value.length - 1) {
+                    new Swiper(".mycss", {
+                        loop: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                        },
+                    })
+                }
+
+            }
+        })
+
+
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                dataList: []
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.dataList = Array.of('aaa', 'bbb', 'ccc')
+                }, 2000);
+            }
+        })
+    </script>
+</body>
+
+</html>
