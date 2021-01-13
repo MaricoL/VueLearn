@@ -1,0 +1,69 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="./lib/vue.js"></script>
+    </head>
+
+    <body>
+
+        <div id="box">
+            <child1>
+                <div>111111</div>
+            </child1>
+
+            <child2>
+                <div slot="a">aaaaa</div>
+                <div slot="b">bbbbb</div>
+            </child2>
+
+            <navbar>
+                <button slot="left">返回</button>
+                <button slot="right">前进</button>
+            </navbar>
+
+        </div>
+
+
+        <script>
+            Vue.component('child1', {
+                template: `
+                    <div>
+                        <slot></slot>
+                        child1
+                        <slot></slot>
+                    </div>
+                `
+            })
+
+            Vue.component('child2', {
+                template: `
+                    <div>
+                        <slot name="a"></slot>
+                        child2
+                        <slot name="b"></slot>
+                    </div>
+                `
+            })
+
+            Vue.component('navbar', {
+                template: `
+                    <div>
+                        <slot name="left"></slot>
+                        导航条    
+                        <slot name="right"></slot>
+                    </div>
+                `
+            })
+
+
+            let vm = new Vue({
+                el: '#box',
+            })
+        </script>
+    </body>
+
+    </html>

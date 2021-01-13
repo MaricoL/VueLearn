@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+
+    <style>
+        .lzl-enter-active {
+            animation: run 1s ease-in 0s 1 normal none;
+        }
+
+        .lzl-leave-active {
+            animation: run 1s ease-out 0s 1 reverse none;
+        }
+
+        @keyframes run {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <button @click=" isShow = !isShow">点击动画</button>
+        <!-- 
+            name：需要和上面写的css动画名称对应 XXX-enter-active  XXX-leave-active
+            appear：页面加载后执行 XXX-enter-active 动画
+         -->
+        <!-- <transition name="lzl" appear>
+            <div v-show="isShow">
+                11111111
+            </div>
+        </transition> -->
+
+        <!-- 
+            注意：transition组件中只允许放一个标签，如果需要放多个标签
+            需要在多标签外层再嵌套一层标签
+         -->
+        <transition name="lzl" appear>
+            <div v-show="isShow">
+                <div>11111</div>
+                <div>22222</div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                isShow: true
+            }
+        })
+    </script>
+</body>
+
+</html>

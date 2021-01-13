@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- v-slot指令写法 -->
+        <!-- <navbar>
+            <template v-slot:left>
+                <button>返回</button>
+            </template>
+            <template v-slot:right>
+                <button>搜索</button>
+            </template>
+        </navbar> -->
+
+        <!-- # 警号写法 -->
+        <navbar>
+            <template #left>
+                <button>返回</button>
+            </template>
+            <template #right>
+                <button>搜索</button>
+            </template>
+        </navbar>
+    </div>
+
+
+    <script>
+        Vue.component('navbar', {
+            template: `
+                <div>
+                    <slot name="left"></slot>
+                    导航条
+                    <slot name="right"></slot>
+                </div>
+            `,
+        })
+
+        let vm = new Vue({
+            el: '#box'
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/swiper/js/swiper.js"></script>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.css">
+    <style>
+        .mycss {
+            width: 800px;
+            height: 400px;
+            background-color: #bfa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="swiper-container mycss">
+        <div class="swiper-wrapper">
+            <!-- <div class="swiper-slide">111111</div>
+            <div class="swiper-slide">222222</div>
+            <div class="swiper-slide">333333</div> -->
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script>
+        function request() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(Array.of('aaa', 'bbb', 'ccc'))
+                }, 2000)
+            })
+        }
+
+        async function getData() {
+            const res = await request()
+            const str = res
+                .map(item => `<div class="swiper-slide">${item}</div>`)
+                .join('')
+            document.querySelector('.swiper-wrapper').innerHTML = str
+        }
+
+        getData()
+
+        new Swiper('.mycss', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        })
+    </script>
+</body>
+
+</html>

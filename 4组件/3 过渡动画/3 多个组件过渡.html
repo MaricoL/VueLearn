@@ -7,6 +7,10 @@
     <title>Document</title>
     <script src="./lib/vue.js"></script>
     <style>
+        html {
+            overflow-x: hidden;
+        }
+
         footer {
             overflow: hidden;
             position: absolute;
@@ -33,17 +37,36 @@
             cursor: pointer;
             text-align: center;
         }
+
+        .lzl-enter-active {
+            animation: run .5s;
+        }
+
+        .lzl-leave-active {
+            animation: run .5s reverse;
+        }
+
+        @keyframes run {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     </style>
 </head>
 <div id="box">
-    <!-- keep-alive：不会重新渲染input标签 -->
-    <!-- component：根据 is属性 来切换组件 -->
+
+
     <keep-alive>
-        <component :is="isWhich"></component>
+        <transition name="lzl" appear mode="out-in">
+            <component :is="isWhich"></component>
+        </transition>
     </keep-alive>
-    <!-- <home></home>
-    <list></list>
-    <shopbar></shopbar> -->
 
     <footer>
         <ul>

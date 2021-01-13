@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        html {
+            overflow-x: hidden;
+        }
+
+        .lzl-enter-active {
+            animation: run .5s ease-in 0s 1 normal none;
+        }
+
+        .lzl-leave-active {
+            animation: run .5s ease-out 0s 1 reverse none;
+        }
+
+        @keyframes run {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" v-model="content">
+        <button @click="addContent">添加</button>
+
+        <transition name="lzl" appear mode="out-in">
+            <div v-if="contentList.length === 0">暂无</div>
+
+            <transition-group name="lzl" tag="ul" v-else>
+                <li v-for="(content, index) in contentList" :key="content">
+                    {{ content }}
+                    <button @click="deleteContent(index)">delete</button>
+                </li>
+            </transition-group>
+        </transition>
+
+        <!-- <ul v-else>
+            <li v-for="(content, index) in contentList">
+                {{ content }}
+                <button @click="deleteContent(index)">delete</button>
+            </li>
+        </ul> -->
+
+
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                content: "",
+                contentList: []
+            },
+            methods: {
+                addContent() {
+                    this.contentList.push(this.content);
+                },
+                deleteContent(index) {
+                    this.contentList.splice(index, 1);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .lzl-enter-active {
+            animation: run 1s ease-in;
+        }
+
+        .lzl-leave-active {
+            animation: run 1s ease-out reverse;
+        }
+
+        @keyframes run {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            100% {
+                opacity: 10;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+
+        <button @click=" isShow = !isShow">点击动画</button>
+
+        <!-- 
+            mode：in-out先进后走 / out-in先走后进
+            key: 标记当前标签的唯一标识，transition多元素动画过渡的时候会根据key
+                    来判断元素是否不一样
+         -->
+        <transition name="lzl" appear mode="out-in">
+            <div v-if="isShow" key="1">1111</div>
+            <div v-else key="2">2222</div>
+        </transition>
+
+    </div>
+
+    <script>
+
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                isShow: true
+            }
+        })
+    </script>
+</body>
+
+</html>

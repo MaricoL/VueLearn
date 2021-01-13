@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.css">
+
+    <script src="./lib/swiper/js/swiper.js"></script>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .mycss {
+            width: 800px;
+            height: 400px;
+            background-color: #bfa;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <swiper :key="dataList.length">
+            <div class="swiper-slide" v-for="data in dataList">{{data}}</div>
+        </swiper>
+
+    </div>
+
+    <script>
+        Vue.component('swiper', {
+            template: `
+                <div class="swiper-container mycss">
+                    <div class="swiper-wrapper">
+                        <!-- <div class="swiper-slide">111111</div>
+                        <div class="swiper-slide">222222</div>
+                        <div class="swiper-slide">333333</div> -->
+                        <slot></slot>
+                    </div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+            `,
+            // updated()：只要swiper中的某个状态改变更新就会执行一次
+            // updated() {
+            //     new Swiper('.mycss', {
+            //         navigation: {
+            //             nextEl: '.swiper-button-next',
+            //             prevEl: '.swiper-button-prev',
+            //         },
+            //         pagination: {
+            //             el: '.swiper-pagination',
+            //             clickable: true,
+            //         },
+            //     })
+            // }
+
+            mounted() {
+                console.log('mounted...');
+                new Swiper('.mycss', {
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                })
+            },
+
+            destroyed() {
+                console.log('destroyed...');
+            }
+        })
+
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                dataList: []
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.dataList = Array.of('aaa', 'bbb', 'ccc')
+                    // resolve(Array.of('aaa', 'bbb', 'ccc'))
+                }, 2000)
+            }
+        })
+    </script>
+</body>
+
+</html>

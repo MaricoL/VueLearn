@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/swiper/js/swiper.js"></script>
+    <link rel="stylesheet" href="./lib/swiper/css/swiper.css">
+    
+    <style>
+        .mycss {
+            width: 800px;
+            height: 400px;
+            background-color: #bfa;
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper-container mycss">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">111111</div>
+            <div class="swiper-slide">222222</div>
+            <div class="swiper-slide">333333</div>
+        </div>
+    </div>
+
+    <script>
+        // new Swiper('.swiper-container')
+        
+        // 自定义 swiper-container 样式
+        new Swiper('.mycss',{
+            loop: true,
+            direction: 'vertical'
+        })
+    </script>
+</body>
+</html>

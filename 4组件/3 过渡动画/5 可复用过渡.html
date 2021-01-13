@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        .left-enter-active {
+            animation: left .2s ease-in 0s 1 normal none;
+        }
+
+        .left-leave-active {
+            animation: left .2s ease-out 0s 1 reverse none;
+        }
+
+        .right-enter-active {
+            animation: right .2s ease-in 0s 1 normal none;
+        }
+
+        .right-leave-active {
+            animation: right .2s ease-out 0s 1 reverse none;
+        }
+
+        @keyframes left {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes right {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <navbar>
+            <button @click=" isShow = !isShow">点击按钮</button>
+        </navbar>
+
+        <!-- 可复用过渡 -->
+        <sidebar v-show="isShow" direction="left"></sidebar>
+
+    </div>
+
+    <script>
+        Vue.component('navbar', {
+            template: `
+                <div style="background-color: yellow;">
+                    导航条-----<slot></slot>
+                </div>
+            `,
+        })
+
+        Vue.component('sidebar', {
+            props: ["direction"],
+            template: `
+                <transition :name="direction" appear>
+                    <ul style="background-color:blue; width:200px;">
+                        <li>111</li>
+                        <li>222</li>
+                        <li>333</li>
+                    </ul>
+                </transition>
+            `,
+        })
+
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                isShow: false
+            }
+        })
+    </script>
+</body>
+
+</html>
