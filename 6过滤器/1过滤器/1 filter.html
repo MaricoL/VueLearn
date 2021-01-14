@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick">axios</button>
+
+        <ul>
+            <li v-for="data in dataList">
+                {{ data.nm }}
+                <img :src="data.img | imgFilter | nmFilter(data.nm)">
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // 过滤器第一个参数为管道符前的值
+        Vue.filter('imgFilter', (str) => {
+            return str.replace('w.h', '') + '@1l_1e_1c_128w_180h'
+        })
+        // 过滤器可以传递参数
+        Vue.filter('nmFilter', (str, nm) => {
+            console.log(nm + '_________');
+            return str
+        })
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                dataList: []
+            },
+            methods: {
+                handleClick() {
+                    axios.get('./json/maoyan.json').then(res => {
+                        console.log(res.data.movieList);
+                        this.dataList = res.data.movieList
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
